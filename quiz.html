@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Desafio Logístico</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-lg">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-truck text-orange-500 text-3xl"></i>
+                    <h1 class="text-2xl font-bold text-gray-800">Desafio Logístico</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="bg-blue-100 px-4 py-2 rounded-lg">
+                        <span class="text-blue-800 font-semibold">Pontuação: <span id="score">0</span></span>
+                    </div>
+                    <a href="index.html" class="text-gray-600 hover:text-orange-500 transition-colors">
+                        <i class="fas fa-home mr-1"></i>Início
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Quiz Container -->
+    <main class="container mx-auto px-6 py-8">
+        <!-- Progress Bar -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-gray-800">Progresso</h3>
+                <span class="text-sm text-gray-600">Pergunta <span id="current-question">1</span> de <span id="total-questions">10</span></span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-3">
+                <div id="progress-bar" class="bg-gradient-to-r from-blue-500 to-orange-500 h-3 rounded-full transition-all duration-500" style="width: 10%"></div>
+            </div>
+        </div>
+
+        <!-- Timer Section -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-clock text-orange-500 text-2xl"></i>
+                    <span class="text-lg font-semibold text-gray-800">Tempo Restante</span>
+                </div>
+                <div class="text-2xl font-bold text-orange-500" id="timer-display">30s</div>
+            </div>
+            <div class="mt-4">
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div id="timer-bar" class="bg-gradient-to-r from-green-500 via-yellow-500 to-red-500 h-2 rounded-full transition-all duration-1000" style="width: 100%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question Card -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-6">
+            <div class="mb-6">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-question-circle text-blue-500 text-2xl mr-3"></i>
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold" id="category-badge">Categoria</span>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4" id="question-text">Carregando pergunta...</h2>
+            </div>
+
+            <!-- Answer Options -->
+            <div class="space-y-4" id="answer-options">
+                <!-- Options will be loaded dynamically -->
+            </div>
+        </div>
+
+        <!-- Help System -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Sistema de Ajuda</h3>
+            <div class="grid md:grid-cols-3 gap-4">
+                <button id="help-scenario" class="help-btn bg-green-100 hover:bg-green-200 text-green-800 p-4 rounded-lg transition-colors duration-300">
+                    <i class="fas fa-map-marked-alt text-2xl mb-2"></i>
+                    <div class="font-semibold">Ajuda com Cenário</div>
+                    <div class="text-sm">Contexto prático</div>
+                </button>
+                
+                <button id="help-teacher" class="help-btn bg-blue-100 hover:bg-blue-200 text-blue-800 p-4 rounded-lg transition-colors duration-300">
+                    <i class="fas fa-graduation-cap text-2xl mb-2"></i>
+                    <div class="font-semibold">Ajuda do Docente</div>
+                    <div class="text-sm">Explicação teórica</div>
+                </button>
+                
+                <button id="help-team" class="help-btn bg-purple-100 hover:bg-purple-200 text-purple-800 p-4 rounded-lg transition-colors duration-300">
+                    <i class="fas fa-users text-2xl mb-2"></i>
+                    <div class="font-semibold">Equipe Apresentadora</div>
+                    <div class="text-sm">Dica direta</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="flex justify-between">
+            <button id="prev-btn" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                <i class="fas fa-arrow-left mr-2"></i>Anterior
+            </button>
+            
+            <button id="next-btn" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                Próxima<i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+    </main>
+
+    <!-- Help Modal -->
+    <div id="help-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg shadow-xl max-w-lg w-full p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-gray-800" id="help-modal-title">Ajuda</h3>
+                    <button id="close-help-modal" class="text-gray-400 hover:text-gray-600">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <div class="mb-6">
+                    <div id="help-modal-icon" class="text-center mb-4">
+                        <i class="fas fa-question-circle text-4xl text-blue-500"></i>
+                    </div>
+                    <p id="help-modal-content" class="text-gray-700 text-center">Conteúdo da ajuda aparecerá aqui.</p>
+                </div>
+                <div class="text-center">
+                    <button id="close-help-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-lg transition-colors duration-300">
+                        Entendi
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Result Modal -->
+    <div id="result-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+                <div class="text-center">
+                    <div id="result-icon" class="mb-4">
+                        <i class="fas fa-check-circle text-6xl text-green-500"></i>
+                    </div>
+                    <h3 id="result-title" class="text-2xl font-bold text-gray-800 mb-2">Resposta Correta!</h3>
+                    <p id="result-explanation" class="text-gray-600 mb-6">Explicação da resposta aparecerá aqui.</p>
+                    <button id="continue-btn" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-300">
+                        Continuar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final Results Modal -->
+    <div id="final-results-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg shadow-xl max-w-lg w-full p-8">
+                <div class="text-center">
+                    <i class="fas fa-trophy text-6xl text-yellow-500 mb-4"></i>
+                    <h3 class="text-3xl font-bold text-gray-800 mb-4">Quiz Finalizado!</h3>
+                    <div class="bg-blue-100 rounded-lg p-6 mb-6">
+                        <div class="text-4xl font-bold text-blue-800 mb-2" id="final-score">0</div>
+                        <div class="text-blue-600">Pontuação Final</div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="bg-green-100 rounded-lg p-4">
+                            <div class="text-2xl font-bold text-green-800" id="correct-answers">0</div>
+                            <div class="text-green-600 text-sm">Acertos</div>
+                        </div>
+                        <div class="bg-red-100 rounded-lg p-4">
+                            <div class="text-2xl font-bold text-red-800" id="wrong-answers">0</div>
+                            <div class="text-red-600 text-sm">Erros</div>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <button id="play-again-btn" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-300">
+                            <i class="fas fa-redo mr-2"></i>Jogar Novamente
+                        </button>
+                        <button id="home-btn" class="w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-300">
+                            <i class="fas fa-home mr-2"></i>Voltar ao Início
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/quiz.js"></script>
+</body>
+</html>
+

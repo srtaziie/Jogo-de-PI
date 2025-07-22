@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio Logístico Interativo</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-lg">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-truck text-orange-500 text-3xl"></i>
+                    <h1 class="text-2xl font-bold text-gray-800">Desafio Logístico</h1>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#" class="text-gray-600 hover:text-orange-500 transition-colors">Início</a>
+                    <a href="#" class="text-gray-600 hover:text-orange-500 transition-colors">Categorias</a>
+                    <a href="#" class="text-gray-600 hover:text-orange-500 transition-colors">Ranking</a>
+                    <a href="admin.html" class="text-gray-600 hover:text-orange-500 transition-colors">Admin</a>
+                </div>
+                <button class="md:hidden text-gray-600" id="mobile-menu-btn">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+            <!-- Mobile Menu -->
+            <div class="md:hidden mt-4 hidden" id="mobile-menu">
+                <a href="#" class="block py-2 text-gray-600 hover:text-orange-500">Início</a>
+                <a href="#" class="block py-2 text-gray-600 hover:text-orange-500">Categorias</a>
+                <a href="#" class="block py-2 text-gray-600 hover:text-orange-500">Ranking</a>
+                <a href="admin.html" class="block py-2 text-gray-600 hover:text-orange-500">Admin</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="container mx-auto px-6 py-12">
+        <div class="text-center text-white mb-12">
+            <div class="mb-8 animate-fade-in">
+                <i class="fas fa-shipping-fast text-6xl text-orange-400 mb-4"></i>
+                <h2 class="text-5xl font-bold mb-4">Desafio Logístico Interativo</h2>
+                <p class="text-xl text-blue-200 max-w-2xl mx-auto">
+                    Teste seus conhecimentos em logística, supply chain e gestão de transportes 
+                    através de perguntas dinâmicas e interativas.
+                </p>
+            </div>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform duration-300">
+                <div class="text-center">
+                    <i class="fas fa-clock text-orange-500 text-4xl mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Timer Configurável</h3>
+                    <p class="text-gray-600">Cada pergunta possui um timer personalizado para aumentar o desafio.</p>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform duration-300">
+                <div class="text-center">
+                    <i class="fas fa-question-circle text-blue-500 text-4xl mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Sistema de Ajuda</h3>
+                    <p class="text-gray-600">Três tipos de ajuda disponíveis: Cenário, Docente e Equipe Apresentadora.</p>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform duration-300">
+                <div class="text-center">
+                    <i class="fas fa-trophy text-yellow-500 text-4xl mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Sistema de Pontuação</h3>
+                    <p class="text-gray-600">Ganhe pontos por respostas corretas e bônus por tempo restante.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories Section -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-12">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Categorias Disponíveis</h3>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4" id="categories-grid">
+                <!-- Categories will be loaded dynamically -->
+            </div>
+        </div>
+
+        <!-- Start Game Section -->
+        <div class="text-center">
+            <div class="bg-white rounded-lg shadow-lg p-8 max-w-md mx-auto">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Pronto para o Desafio?</h3>
+                <p class="text-gray-600 mb-6">Escolha uma categoria e teste seus conhecimentos em logística!</p>
+                <button id="start-game-btn" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg">
+                    <i class="fas fa-play mr-2"></i>
+                    Iniciar Desafio
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex justify-center items-center space-x-4 mb-4">
+                <i class="fas fa-boxes text-orange-400 text-2xl"></i>
+                <span class="text-lg font-semibold">Projeto Integrador - Logística</span>
+            </div>
+            <p class="text-gray-400">© 2024 Desafio Logístico Interativo. Desenvolvido para fins educacionais.</p>
+        </div>
+    </footer>
+
+    <!-- Category Selection Modal -->
+    <div id="category-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-gray-800">Selecione uma Categoria</h3>
+                    <button id="close-modal" class="text-gray-400 hover:text-gray-600">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <div id="modal-categories" class="space-y-3">
+                    <!-- Categories will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
+
